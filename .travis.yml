@@ -1,0 +1,22 @@
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+language: java
+
+jdk:
+  - oraclejdk8
+  
+env:
+  global:
+  - SONATYPE_USERNAME=ralscha23
+  
+after_success:
+- python addsettings.py
+- mvn clean deploy -DskipTests=true --settings ~/.m2/mySettings.xml
+
+cache:
+  directories:
+  - $HOME/.m2
